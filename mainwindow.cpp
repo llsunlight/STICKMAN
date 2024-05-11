@@ -14,7 +14,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
    ui->setupUi(this);
-    // Connection(ui->)
+    connect(ui->back,&QPushButton::clicked,[=](){
+       //发信号
+       emit this->back2();
+   });
 
     initWindow();    //初始化窗口
 }
@@ -31,12 +34,7 @@ void MainWindow::initWindow(){
     background.load(BACKGROUND_PATH);    //加载背景
     setFixedSize(GAME_WIDTH ,GAME_HEIGHT);  //大小
     update();
-    //排版
-    int fontId=QFontDatabase::addApplicationFont(QStringLiteral(":/res/hk4e_zh-cn.ttf"));   //导入字体文件
-    QStringList fontFamilies=QFontDatabase::applicationFontFamilies(fontId);
-    QFont font;
-    font.setFamily(fontFamilies[0]);
-    ui->restart->setFont(font);
+
     //返回按钮绘制
     // backBtn -> setParent(this);
     // backBtn ->move(this ->width()*0.5-backBtn->width()*0.5,this->height()*0.5);
@@ -54,6 +52,12 @@ void MainWindow::initWindow(){
     //     emit this->chooseBack();
     // });
 
+    //排版
+    int fontId=QFontDatabase::addApplicationFont(QStringLiteral(":/res/hk4e_zh-cn.ttf"));   //导入字体文件
+    QStringList fontFamilies=QFontDatabase::applicationFontFamilies(fontId);
+    QFont font;
+    font.setFamily(fontFamilies[0]);
+    ui->restart->setFont(font);
     //标签颜色
     QPalette palette;
     palette.setColor(QPalette::WindowText, Qt::red);
@@ -69,14 +73,11 @@ void MainWindow::initWindow(){
     ui->over_score->setFont(font);         //结算
     ui->over_distance->setFont(font);
     ui->game_over->setFont(font);
+    ui->back->setFont(font);
 
     //开始游戏
     playgame();
-
     ui->restart->setFocusPolicy(Qt::NoFocus);
-    ui->return_main->setFocusPolicy(Qt::NoFocus);    //
-    // ui->score->hide();
-    // ui->distance->hide();
     ui->groupBox->hide();
 
     m_Timer.setInterval(GAME_RATE);                    //主定时器设置
@@ -132,7 +133,6 @@ void MainWindow::gameover(){
     ui->groupBox->setGeometry(330,0,ui->groupBox->width(),ui->groupBox->height());
     ui->over_score->setText("Score: "+QString::number(score));
     ui->over_distance->setText("Distance: "+QString::number(grounds.distance)+" m");
-    ui->pic->setText("try again!");
     ui->groupBox->show();      //结算界面出现
 }
 

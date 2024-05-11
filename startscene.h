@@ -24,7 +24,7 @@ class startscene : public QMainWindow
 public:
     // explicit startscene(QWidget *parent = nullptr);
     startscene(QWidget *parent = nullptr);
-    ~startscene();
+    // ~startscene();      //主窗口不能释放
     //绘图事件
     void paintEvent(QPaintEvent *);
     //连接主页面

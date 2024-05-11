@@ -12,6 +12,7 @@
 #include "barriers.h"
 #include "startbutton.h"
 #include "QWidget"
+#include "QPushButton"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -68,6 +69,7 @@ private slots:
     // void on_return_main_clicked();
 
 signals:
+    void back2();//定义退回信号
 
 
 };

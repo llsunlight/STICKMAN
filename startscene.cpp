@@ -12,7 +12,9 @@ startscene::startscene(QWidget *parent)
     this->setFixedSize(1080, 690);
     //设置窗口上方标题
     this->setWindowTitle("STICKMAN");
-    this->p=new MainWindow;//实例化页面2
+
+    this->p=new MainWindow(this);//实例化页面2
+
     //创建开始按钮
     startbutton*starb=new startbutton(":/res01/startbutton.png");
     starb->setParent(this);
@@ -21,6 +23,7 @@ startscene::startscene(QWidget *parent)
         this->hide();
         this->p->show();
     });
+
     //创建介绍按钮
     startbutton*intro=new startbutton(":/res01/intro.png");
     intro->setParent(this);
@@ -28,9 +31,14 @@ startscene::startscene(QWidget *parent)
     connect(intro,&QPushButton::clicked,[=](){
         this->intro->show();
     });
+
+    connect(this->p,&MainWindow::back2,[=]{
+        this->p->hide();
+        this->show();
+    });
 }
 
-startscene::~startscene(){};
+// startscene::~startscene(){};
 
 void startscene::paintEvent(QPaintEvent *)
 {

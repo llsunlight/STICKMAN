@@ -1,25 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>res/apple.png</file>
-        <file>res/background.png</file>
-        <file>res/fly.png</file>
-        <file>res/gameover.png</file>
-        <file>res/ground.png</file>
-        <file>res/ground2.png</file>
-        <file>res/icon.ico</file>
-        <file>res/paimon.png</file>
-        <file>res/piaofuling.png</file>
-        <file>res/Setting_icon.png</file>
-        <file>res/shilaimu.png</file>
-        <file>res/shime1.png</file>
-        <file>res/stand_0.png</file>
-        <file>res/veget.png</file>
-        <file>res/yucha.png</file>
-        <file>res/piaofuling2.png</file>
-        <file>res/shilaimu2.png</file>
-        <file>res/yucha2.png</file>
         <file>res/hk4e_zh-cn.ttf</file>
-        <file>res/yucha3.png</file>
         <file>res01/run5.png</file>
         <file>res01/jump.png</file>
         <file>res01/run1.png</file>
