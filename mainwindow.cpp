@@ -35,23 +35,6 @@ void MainWindow::initWindow(){
     setFixedSize(GAME_WIDTH ,GAME_HEIGHT);  //大小
     update();
 
-    //返回按钮绘制
-    // backBtn -> setParent(this);
-    // backBtn ->move(this ->width()*0.5-backBtn->width()*0.5,this->height()*0.5);
-
-    // connect(backBtn,&startbutton::clicked,[=](){
-    //     //qDebug()<<"返回到主场景";
-    //     this->hide();
-    //     ui->groupBox->hide();
-    //     ui->score->hide();
-    //     ui->distance->hide();
-    //     barriers.clear();
-    //     nahida.y=NAHIDA_ON_GROUNG_POS_Y;
-    //     nahida.current_run_img=0;
-    //     update();
-    //     emit this->chooseBack();
-    // });
-
     //排版
     int fontId=QFontDatabase::addApplicationFont(QStringLiteral(":/res/hk4e_zh-cn.ttf"));   //导入字体文件
     QStringList fontFamilies=QFontDatabase::applicationFontFamilies(fontId);
@@ -75,10 +58,12 @@ void MainWindow::initWindow(){
     ui->game_over->setFont(font);
     ui->back->setFont(font);
 
-    //开始游戏
-    playgame();
-    ui->restart->setFocusPolicy(Qt::NoFocus);
-    ui->groupBox->hide();
+    score=0;
+    grounds.distance=0;
+    ui->score->setText("Score: "+QString::number(score));
+    ui->distance->setText("Distance: "+QString::number(grounds.distance)+" m");
+    sprint_once=false;
+    sprint_twice=false;
 
     m_Timer.setInterval(GAME_RATE);                    //主定时器设置
     sprint_Timer.setInterval(SPRINT_DURATION);         //冲刺定时器设置
@@ -90,10 +75,16 @@ void MainWindow::initWindow(){
     add_melody_interval_Timer.setSingleShot(true);
     protected_Timer.setInterval(PROTECTED_DURATION);
     protected_Timer.setSingleShot(true);
-    role.y=ROLE_ON_GROUNG_POS_Y;
+    role.y=ROLE_ON_GROUNG_POS_Y;     //角色设置
+
+    //开始游戏
+    playgame();
+    ui->restart->setFocusPolicy(Qt::NoFocus);
+    ui->groupBox->hide();
+
     connect(&m_Timer,&QTimer::timeout,[=](){
-        updatePosition();    //更新坐标
-        collisionDetection();  //碰撞检测
+        updatePosition();
+        collisionDetection();
         ui->score->setText("Score: "+QString::number(score));   //更新分数
         ui->distance->setText("Distance: "+QString::number(grounds.distance)+" m");
         update();          //刷新屏幕
@@ -102,16 +93,11 @@ void MainWindow::initWindow(){
         addBarrier();
     });
 
-    score=0;
-    grounds.distance=0;
-    ui->score->setText("Score: "+QString::number(score));
-    ui->distance->setText("Distance: "+QString::number(grounds.distance)+" m");
-    sprint_once=false;
-    sprint_twice=false;
+
 }
 
 
-void MainWindow::playgame(){                                                                                      /////////playgame & gameover
+void MainWindow::playgame(){
     score=0;
     grounds.distance=0;
     role.current_run_img=0;
@@ -191,7 +177,7 @@ void MainWindow::collisionDetection(){
         }
     }
 }
-
+//是否冲刺两次
 void MainWindow::sprint(){
     if(!sprint_interval_Timer.isActive()){
         sprint_once=false;
@@ -249,25 +235,8 @@ void MainWindow::on_restart_clicked()
     playgame();
 }
 
-// void MainWindow::on_return_main_clicked()
-// {
-//     this->hide();
-//     ui->groupBox->hide();
-//     ui->score->hide();
-//     ui->distance->hide();
-//     // ui->intro->show();
-//     connect(backBtn,&startbutton::clicked,[=](){
-//         //qDebug()<<"返回到主场景";
-//         //隐藏自身
-//         emit this->chooseBack();
-//     });
-//     barriers.clear();
-//     nahida.y=NAHIDA_ON_GROUNG_POS_Y;
-//     nahida.current_run_img=0;
-//     update();
-// }
 
-void MainWindow::paintEvent(QPaintEvent *event){                                  ////////paintEvent             //////////Event
+void MainWindow::paintEvent(QPaintEvent *event){
     QPainter painter(this);
     //绘制背景
     painter.drawPixmap(0,0,background);
@@ -289,7 +258,7 @@ void MainWindow::paintEvent(QPaintEvent *event){                                
     }
 }
 //键盘关联
-void MainWindow::keyPressEvent(QKeyEvent *event){                                 /////////keyPressEvent
+void MainWindow::keyPressEvent(QKeyEvent *event){
     QKeyEvent *key=(QKeyEvent*) event;
     if(key->key()==Qt::Key_Space){                     //空格键跳跃
         role.jump();
@@ -298,7 +267,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){                               
         sprint();
     }
 }
-void MainWindow::mousePressEvent(QMouseEvent *event){                             /////////mousePressEvent
+void MainWindow::mousePressEvent(QMouseEvent *event){
     if(event->button()==Qt::RightButton){
         sprint();
     }

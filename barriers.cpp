@@ -79,6 +79,7 @@ QPixmap Zidan::getImg(int i){
     }
     else
         return img2;
+
 }
 
 Stop::Stop()

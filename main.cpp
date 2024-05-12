@@ -10,7 +10,9 @@ int main(int argc, char *argv[])
 
     startscene q;
     q.show();//实例化q让其成为显示的第一个窗口
+
     MainWindow w;
+
 
     return a.exec();
 }

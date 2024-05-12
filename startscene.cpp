@@ -13,7 +13,7 @@ startscene::startscene(QWidget *parent)
     //设置窗口上方标题
     this->setWindowTitle("STICKMAN");
 
-    this->p=new MainWindow(this);//实例化页面2
+    this->p=new MainWindow;//实例化页面2
 
     //创建开始按钮
     startbutton*starb=new startbutton(":/res01/startbutton.png");
@@ -38,7 +38,7 @@ startscene::startscene(QWidget *parent)
     });
 }
 
-// startscene::~startscene(){};
+startscene::~startscene(){};
 
 void startscene::paintEvent(QPaintEvent *)
 {

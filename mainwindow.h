@@ -10,7 +10,6 @@
 #include "ground.h"
 #include "role.h"
 #include "barriers.h"
-#include "startbutton.h"
 #include "QWidget"
 #include "QPushButton"
 
@@ -22,8 +21,6 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    //返回按钮
-    startbutton*backBtn = new startbutton(":/res01/backbutton.png");
 
 
 public:
@@ -66,7 +63,7 @@ public:
 
 private slots:
     void on_restart_clicked();
-    // void on_return_main_clicked();
+
 
 signals:
     void back2();//定义退回信号
