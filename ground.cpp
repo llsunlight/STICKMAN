@@ -6,7 +6,7 @@ Ground::Ground()
 {
     ground.load(GROUND_PATH);   //初始化加载地面对象
     ground_posX=-31;         //设置初始坐标
-    ground_scroll_speed=SCENE_SCROLL_SPEED;
+    ground_scroll_speed=3;   //地面初始移动速度
 }
 //计算坐标
 void Ground::calculatePosition(){

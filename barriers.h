@@ -2,13 +2,14 @@
 #define BARRIERS_H
 
 #include <QPixmap>
+#include <ground.h>
 
 //基类
 class Barriers
 {
 public:
     Barriers();
-    virtual void updatePosition()=0;
+    virtual void updatePosition(Ground&ground)=0;
     virtual void updatebarrierPosY()=0;
     virtual bool isOut()=0;
     virtual int collisionDetection(QRect)=0;           //碰撞检测情况处理超过两种，定义返回值为int
@@ -24,7 +25,7 @@ class Box:public Barriers
 {
 public:
     Box();
-    void updatePosition();
+    void updatePosition(Ground&ground);
     void updatebarrierPosY(){}
     bool isOut();
     int collisionDetection(QRect);
@@ -37,7 +38,7 @@ class Zidan:public Barriers
 {
 public:
     Zidan();
-    void updatePosition();
+    void updatePosition(Ground&ground);
     void updatebarrierPosY();
     bool isOut();
     int collisionDetection(QRect);
@@ -52,7 +53,7 @@ class Stop:public Barriers
 {
 public:
     Stop();
-    void updatePosition();
+    void updatePosition(Ground&ground);
     void updatebarrierPosY(){}
     bool isOut();
     int collisionDetection(QRect);
@@ -65,7 +66,7 @@ class Melody:public Barriers
 {
 public:
     Melody();
-    void updatePosition();
+    void updatePosition(Ground&ground);
     void updatebarrierPosY(){}
     bool isOut();
     int collisionDetection(QRect);
@@ -76,7 +77,7 @@ class Wudi:public Barriers
 {
 public:
     Wudi(int);
-    void updatePosition();
+    void updatePosition(Ground&ground);
     void updatebarrierPosY(){}
     bool isOut();
     int collisionDetection(QRect);

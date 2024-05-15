@@ -20,8 +20,8 @@ Box::Box()
     rect.setHeight(img.height()-10);
     // rect.moveTo(x+5,y+3);
 }
-void Box::updatePosition(){
-    x-=SCENE_SCROLL_SPEED;
+void Box::updatePosition(Ground&ground){
+    x-=ground.ground_scroll_speed;
     rect.moveTo(x+5,y+3);
 }
 bool Box::isOut(){
@@ -55,8 +55,8 @@ Zidan::Zidan()
     rect.setHeight(img.height()-11);
     rect.moveTo(x+10,y+6);
 }
-void Zidan::updatePosition(){
-    x-=SCENE_SCROLL_SPEED;
+void Zidan::updatePosition(Ground&ground){
+    x-=ground.ground_scroll_speed;
     rect.moveTo(x+10,y+6);
 }
 void Zidan::updatebarrierPosY(){
@@ -92,8 +92,8 @@ Stop::Stop()
     rect.setHeight(img.height());
     rect.moveTo(x+21,y);
 }
-void Stop::updatePosition(){
-    x-=SCENE_SCROLL_SPEED;
+void Stop::updatePosition(Ground&ground){
+    x-=ground.ground_scroll_speed;
     rect.moveTo(x+21,y);
 }
 bool Stop::isOut(){
@@ -122,8 +122,8 @@ Melody::Melody(){
     rect.setHeight(img.height());
     rect.moveTo(x,y);
 }
-void Melody::updatePosition(){
-    x-=SCENE_SCROLL_SPEED;
+void Melody::updatePosition(Ground&ground){
+    x-=ground.ground_scroll_speed;
     rect.moveTo(x,y);
 }
 bool Melody::isOut(){
@@ -154,8 +154,8 @@ Wudi::Wudi(int i){
     rect.setHeight(img.height());
     rect.moveTo(x,y);
 }
-void Wudi::updatePosition(){
-    x-=SCENE_SCROLL_SPEED;
+void Wudi::updatePosition(Ground&ground){
+    x-=ground.ground_scroll_speed;
     rect.moveTo(x,y);
 }
 bool Wudi::isOut(){
