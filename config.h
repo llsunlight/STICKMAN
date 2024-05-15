@@ -19,7 +19,7 @@
 #define MELODY_PATH ":/res01/melofy.png"             //旋律
 #define WUDI_PATH ":/res01/wudi.png"               //捡到就无敌
 
-#define SCENE_SCROLL_SPEED 3     //场景移动速度
+// #define SCENE_SCROLL_SPEED 3     //场景移动速度
 #define GAME_RATE 8              //屏幕刷新间隔
 #define RUN_INTERVAL 60          //奔跑图片刷新间隔
 #define INIT_FALL_SPEED 3        //初始下落速度
@@ -31,5 +31,7 @@
 #define ADD_BARRIER_INTERVAL 1500   //生成障碍物间隔时间
 #define ADD_MELODY_INTERVAL 16000    //生成旋律间隔时间
 #define PROTECTED_DURATION 6000     //无敌时间
+
+#define ADD_DIFFICULTY 10000; //地面移动速度增加间隔时间
 
 #endif // CONFIG_H

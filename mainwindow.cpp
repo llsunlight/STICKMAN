@@ -29,6 +29,8 @@ MainWindow::~MainWindow()
 
 
 void MainWindow::initWindow(){
+
+
     //窗口
     setWindowTitle(GAME_TITLE);            //标题
     background.load(BACKGROUND_PATH);    //加载背景
@@ -36,7 +38,7 @@ void MainWindow::initWindow(){
     update();
 
     //排版
-    int fontId=QFontDatabase::addApplicationFont(QStringLiteral(":/res/hk4e_zh-cn.ttf"));   //导入字体文件
+    int fontId=QFontDatabase::addApplicationFont(QStringLiteral(":/res01/hk4e_zh-cn.ttf"));   //导入字体文件
     QStringList fontFamilies=QFontDatabase::applicationFontFamilies(fontId);
     QFont font;
     font.setFamily(fontFamilies[0]);
@@ -65,7 +67,7 @@ void MainWindow::initWindow(){
     sprint_once=false;
     sprint_twice=false;
 
-    m_Timer.setInterval(GAME_RATE);                    //主定时器设置
+    m_Timer.setInterval(GAME_RATE);                    //主定时器设置  控制游戏难度
     sprint_Timer.setInterval(SPRINT_DURATION);         //冲刺定时器设置
     sprint_Timer.setSingleShot(true);
     sprint_interval_Timer.setInterval(SPRINT_INTERVAL);
@@ -75,19 +77,30 @@ void MainWindow::initWindow(){
     add_melody_interval_Timer.setSingleShot(true);
     protected_Timer.setInterval(PROTECTED_DURATION);
     protected_Timer.setSingleShot(true);
+
+    difficult_add_Timer.setInterval(10000);   //难度增加计时器
     role.y=ROLE_ON_GROUNG_POS_Y;     //角色设置
+
 
     //开始游戏
     playgame();
     ui->restart->setFocusPolicy(Qt::NoFocus);
     ui->groupBox->hide();
 
-    connect(&m_Timer,&QTimer::timeout,[=](){
+    connect(&difficult_add_Timer,&QTimer::timeout,this,[=](){
+        if(ground.ground_scroll_speed<=21){
+            ground.ground_scroll_speed+=3;
+            update();
+            qDebug()<<"add";
+        }
+    });
+
+    connect(&m_Timer,&QTimer::timeout,[=](){                                        //随着时间增加地面移动速度
         updatePosition();
         collisionDetection();
         ui->score->setText("Score: "+QString::number(score));   //更新分数
         ui->distance->setText("Distance: "+QString::number(grounds.distance)+" m");
-        update();          //刷新屏幕
+        update();
     });
     connect(&add_Barrier_interval_Timer,&QTimer::timeout,[=](){
         addBarrier();
@@ -106,6 +119,7 @@ void MainWindow::playgame(){
     m_Timer.start();            //计时器，启动！
     role.run_Timer.start();
     add_Barrier_interval_Timer.start();
+    difficult_add_Timer.start();
 }
 
 void MainWindow::gameover(){
@@ -129,7 +143,7 @@ void MainWindow::updatePosition(){           //更新对象坐标
             it=barriers.erase(it);
         }
         else{
-            (*it)->updatePosition();
+            (*it)->updatePosition(ground);
             (*it)->updatebarrierPosY();     //对象是c艹更新Y坐标否则执行空函数
             it++;
         }
@@ -140,8 +154,8 @@ void MainWindow::updatePosition(){           //更新对象坐标
         grounds.calculatePositions();
         for(auto& barr:barriers)
         {
-            barr->updatePosition();
-            barr->updatePosition();
+            barr->updatePosition(ground);
+            barr->updatePosition(ground);
         }
     }
 }
@@ -169,7 +183,7 @@ void MainWindow::collisionDetection(){
         }
         case 3:{                      //爱心
             it=barriers.erase(it);
-            score+=2;
+            score+=5;
             break;
         }
         default:

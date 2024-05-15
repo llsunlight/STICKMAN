@@ -13,6 +13,7 @@
 #include "QWidget"
 #include "QPushButton"
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -20,7 +21,6 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
 
 
 public:
@@ -48,12 +48,16 @@ public:
     QTimer add_Barrier_interval_Timer; //生成障碍物计时器
     QTimer add_melody_interval_Timer;   //生成旋律间隔时间计时器
     QTimer protected_Timer;            //无敌时间
+
+    QTimer difficult_add_Timer;     //难度增加计时器
+
     bool sprint_once;         //是否已经冲刺一次
     bool sprint_twice;        //是否已经冲刺两次
     int i;                    //障碍物类型
     int score;           //分数
 
     Grounds grounds;  //地面对象
+    Ground ground;
     Role role;
 
     Ui::MainWindow *ui;

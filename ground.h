@@ -13,7 +13,7 @@ public:
 public:
     QPixmap ground;   //地面图片对象
     int ground_posX;  //地面X坐标
-    int ground_scroll_speed;
+    int ground_scroll_speed=3;
 };
 
 //地图类
